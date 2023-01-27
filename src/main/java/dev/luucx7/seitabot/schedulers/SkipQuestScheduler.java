@@ -1,25 +1,34 @@
 package dev.luucx7.seitabot.schedulers;
 
-import dev.luucx7.seitabot.wolvesville.WolvesvilleAPI;
+import dev.luucx7.seitabot.controllers.WolvesvilleController;
 import dev.luucx7.seitabot.wolvesville.model.quests.ActiveQuest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SkipQuestScheduler {
 
-    private final WolvesvilleAPI wolvesvilleAPI;
+    private final WolvesvilleController wovController;
 
-    public SkipQuestScheduler(WolvesvilleAPI api) {
-        this.wolvesvilleAPI = api;
+    @Autowired
+    public SkipQuestScheduler(WolvesvilleController controller) {
+        this.wovController = controller;
     }
 
-    @Scheduled(fixedDelay = 120000, initialDelay = 5000)
+    @Scheduled(fixedDelay = 60000, initialDelay = 1000)
     public void lookForSkip() {
-        ActiveQuest quest = wolvesvilleAPI.getClanActiveQuest();
+        try {
+            if (!wovController.isAutomaticSkipWaitingTime()) return;
 
-        if (!(quest == null)) {
-            if (quest.isTierFinished()) wolvesvilleAPI.skipWaitingTime();
+            ActiveQuest quest = wovController.getApi().getClanActiveQuest();
+
+            if (!(quest == null)) {
+                if (quest.isTierFinished()) wovController.getApi().skipWaitingTime();
+            }
+        } catch(Exception e) {
+            boolean a = true;
         }
     }
 }

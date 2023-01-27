@@ -4,8 +4,7 @@ import dev.luucx7.seitabot.wolvesville.WolvesvilleAPI;
 import dev.luucx7.seitabot.wolvesville.model.ClanMember;
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import lombok.Setter;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +14,12 @@ import java.util.List;
 @Component
 public class WolvesvilleController {
 
-    @Getter(AccessLevel.PRIVATE)
+    @Getter(AccessLevel.PUBLIC)
     private final WolvesvilleAPI api;
+
+    @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PUBLIC)
+    private boolean automaticSkipWaitingTime = false;
 
     public WolvesvilleController(WolvesvilleAPI api) {
         this.api = api;

@@ -1,7 +1,9 @@
 package dev.luucx7.seitabot.beans;
 
 import dev.luucx7.seitabot.configuration.DiscordConfiguration;
+import dev.luucx7.seitabot.discord.commands.AutomaticSkipStatusCommand;
 import dev.luucx7.seitabot.discord.commands.DeactivateAllCommand;
+import dev.luucx7.seitabot.discord.commands.ToggleAutomaticSkipCommand;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,16 @@ public class DiscordBotBean {
 
     private final DiscordConfiguration discordConfiguration;
 
-    private final DeactivateAllCommand deactivateAllCommand;
+    @Autowired
+    private DeactivateAllCommand deactivateAllCommand;
+    @Autowired
+    private ToggleAutomaticSkipCommand toggleAutomaticSkipCommand;
+    @Autowired
+    private AutomaticSkipStatusCommand automaticSkipStatusCommand;
 
     @Autowired
-    public DiscordBotBean(DiscordConfiguration discordConfiguration, DeactivateAllCommand deactivateAllCommand) {
+    public DiscordBotBean(DiscordConfiguration discordConfiguration) {
         this.discordConfiguration = discordConfiguration;
-        this.deactivateAllCommand = deactivateAllCommand;
     }
 
     @Bean
@@ -28,19 +34,9 @@ public class DiscordBotBean {
                 .login()
                 .join();
 
-       deactivateAllCommand.register(api);
-
-
-//        SlashCommand.with("skip", "Teste").createGlobal(api).join();
-//        api.addSlashCommandCreateListener(event -> {
-//            event.getSlashCommandInteraction().createImmediateResponder().append("teste").respond();
-//        });
-//
-//        api.addMessageCreateListener(event -> {
-//            if (event.getMessageContent().equalsIgnoreCase("!skip")) {
-//                event.getChannel().sendMessage("eae!");
-//            }
-//        });
+        deactivateAllCommand.register(api);
+        toggleAutomaticSkipCommand.register(api);
+        automaticSkipStatusCommand.register(api);
 
         return api;
     }
