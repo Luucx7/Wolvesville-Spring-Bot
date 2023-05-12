@@ -25,7 +25,6 @@ import java.util.UUID;
 
 public class WolvesvilleAPI {
     public static final String WOV_URI = "https://api.wolvesville.com";
-//    public static final int CACHE_DELAY = 300000;
 
     @Getter(AccessLevel.PRIVATE)
     private final String token;
@@ -69,7 +68,7 @@ public class WolvesvilleAPI {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         } catch (URISyntaxException e) {
-            throw new RuntimeException("Error while parsing WOV URI: Try update the app.", e);
+            throw new RuntimeException("Error while parsing WOV URI: Try updating the app.", e);
         }
     }
 

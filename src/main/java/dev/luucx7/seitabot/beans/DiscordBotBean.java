@@ -1,9 +1,7 @@
 package dev.luucx7.seitabot.beans;
 
 import dev.luucx7.seitabot.configuration.DiscordConfiguration;
-import dev.luucx7.seitabot.discord.commands.AutomaticSkipStatusCommand;
-import dev.luucx7.seitabot.discord.commands.DeactivateAllCommand;
-import dev.luucx7.seitabot.discord.commands.ToggleAutomaticSkipCommand;
+import dev.luucx7.seitabot.discord.commands.*;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,10 @@ public class DiscordBotBean {
     private ToggleAutomaticSkipCommand toggleAutomaticSkipCommand;
     @Autowired
     private AutomaticSkipStatusCommand automaticSkipStatusCommand;
+    @Autowired
+    private DeactivateMemberCommand deactivateMemberCommand;
+    @Autowired
+    private ActivateMemberCommand activateMemberCommand;
 
     @Autowired
     public DiscordBotBean(DiscordConfiguration discordConfiguration) {
@@ -37,6 +39,8 @@ public class DiscordBotBean {
         deactivateAllCommand.register(api);
         toggleAutomaticSkipCommand.register(api);
         automaticSkipStatusCommand.register(api);
+        deactivateMemberCommand.register(api);
+        activateMemberCommand.register(api);
 
         return api;
     }
