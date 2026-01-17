@@ -1,11 +1,13 @@
 discord:
-    token: ${env.DISCORD_TOKEN}
+  token: ${DISCORD_TOKEN}
+
 wolvesville:
-    token: ${env.WOV_TOKEN}
-    clanId: ${env.WOV_CLAN}
+  token: ${WOV_TOKEN}
+  clanId: ${WOV_CLAN}
+
 database:
-    host: ${env.DB_HOST}
-    port: ${env.DB_PORT}
-    user: ${env.DB_USER}
-    pass: ${env.DB_PASS}
-    db: ${env.DB_DATABASE}
+  host: ${DB_HOST}
+  port: ${DB_PORT}
+  user: ${DB_USER}
+  pass: ${DB_PASS}
+  db: ${DB_DATABASE}

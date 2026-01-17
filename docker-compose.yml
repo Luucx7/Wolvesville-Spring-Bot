@@ -1,0 +1,17 @@
+name: seita-bot
+
+services:
+  bot:
+    build: .
+    container_name: seita-bot
+    env_file:
+      - .env
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    external: true
